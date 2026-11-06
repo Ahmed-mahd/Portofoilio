@@ -53,6 +53,7 @@ const navItems = [
   ["about", "Profile"],
   ["expertise", "Expertise"],
   ["research", "Research"],
+  ["academic-archive", "Archive"],
   ["contact", "Contact"],
 ] as const;
 
@@ -136,6 +137,25 @@ export default function Home() {
       <section className="section impact-section"><div className="shell"><div className="section-kicker">03 / IMPACT <span /></div><div className="impact-layout"><div><h2>A career measured<br /><em>in lasting impact.</em></h2><p className="section-intro">Teaching, publishing, and improving pediatric cardiac outcomes across generations.</p></div><div className="stats-grid">{d.statistics.map((stat) => <div className="impact-stat" key={stat.label}><strong><AnimatedCounter value={stat.value} /><sup>+</sup></strong><span>{stat.label}</span></div>)}</div></div></div></section>
 
       <section className="section research-section" id="research"><div className="shell"><div className="section-kicker light">04 / RESEARCH <span /></div><div className="section-heading-row"><div><h2>Knowledge that<br /><em>moves medicine forward.</em></h2></div><p>Selected publications and collaborations spanning echocardiography, fetal cardiology, congenital heart disease, and rheumatic heart disease.</p></div><div className="research-tags">{d.researchInterests.slice(0, 8).map((tag) => <span key={tag}>{tag}</span>)}</div><div className="publication-toolbar"><div className="filter-tabs">{[["all", "All work"], ["recent", "2020—now"], ["classic", "Before 2015"]].map(([value, label]) => <button className={filter === value ? "active" : ""} key={value} onClick={() => { setFilter(value); setShowAll(false); }}>{label}</button>)}</div><span className="publication-count">{filteredPublications.length} publications indexed</span></div><div className="publication-list">{(showAll ? filteredPublications : filteredPublications.slice(0, 6)).map((publication, index) => <a className="publication-row" href={publication.doi === "#" ? undefined : publication.doi} target="_blank" rel="noreferrer" key={`${publication.title}-${index}`}><span className="publication-year">{publication.year || "—"}</span><span className="publication-title"><strong>{publication.title}</strong><small>{publication.journal}</small></span><Icon name="external" size={17} /></a>)}</div><button className="button button-outline-light more-button" onClick={() => setShowAll(!showAll)}>{showAll ? "Show fewer" : "Load more publications"} <Icon name="arrow" size={17} /></button></div></section>
+
+      <section className="section archive-section" id="academic-archive">
+        <div className="shell">
+          <div className="section-kicker">ACADEMIC ARCHIVE <span /></div>
+          <div className="section-heading-row archive-heading"><div><h2>Beyond the<br /><em>publication list.</em></h2></div><p>The supplied CV and bibliography distinguish journal publications from conference outputs, supervised postgraduate work, and Prof. Sheta&apos;s own research. Each record is kept in its original category.</p></div>
+          <div className="archive-grid">
+            <div className="archive-panel">
+              <div className="archive-panel-head"><span className="archive-index">A / 31 RECORDS</span><h3>Conference presentations</h3><p>International meetings, posters, abstracts, and national scientific presentations.</p></div>
+              <div className="archive-list">{d.conferences.map((item, index) => <article className="archive-item" key={`${item.title}-${index}`}><span className="archive-year">{item.year || "—"}</span><div><strong>{item.title}</strong><small>{item.venue} · {item.location}</small></div></article>)}</div>
+            </div>
+            <div className="archive-panel">
+              <div className="archive-panel-head"><span className="archive-index">B / 20 RECORDS</span><h3>Supervised postgraduate theses</h3><p>Supervision records transcribed from the Cairo University CV; these are not publications authored by Prof. Sheta.</p></div>
+              <div className="archive-list">{d.supervisedTheses.map((item, index) => <article className="archive-item" key={`${item.title}-${index}`}><span className="archive-year">{item.year}</span><div><strong>{item.title}</strong><small>{item.degree} · {item.university}</small></div></article>)}</div>
+            </div>
+          </div>
+          <div className="own-research"><div><span className="archive-index">C / PROFESSOR&apos;S OWN RESEARCH</span><h3>Postgraduate research</h3></div><div className="own-research-list">{d.ownResearch.map((item) => <article key={item.title}><span>{item.year}</span><div><strong>{item.title}</strong><small>{item.degree} · {item.institution}</small></div></article>)}</div></div>
+          <p className="archive-note">Bibliography note: the supplied document is a verification-oriented master bibliography. Older CV-derived records and collaborative works are intentionally labeled where complete author lists or publication metadata still require confirmation.</p>
+        </div>
+      </section>
 
       <section className="section career-section"><div className="shell"><div className="section-kicker">05 / JOURNEY <span /></div><div className="career-grid"><div><h2>Built on<br /><em>curiosity.</em></h2><p className="section-intro">A career that keeps asking better questions — in the clinic, the classroom, and the lab.</p></div><div className="timeline">{d.experience.map((item) => <article key={item.title}><span className="timeline-marker" /><small>{item.period}</small><h3>{item.title}</h3><p>{item.institution}</p><span>{item.description}</span></article>)}</div></div></div></section>
 
